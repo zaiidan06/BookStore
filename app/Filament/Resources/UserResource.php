@@ -54,7 +54,7 @@ class UserResource extends Resource
                 Tables\Columns\BadgeColumn::make('role')
                 ->colors([
                     'warning' => 'admin',
-                    'success' => 'customer',
+                    'success' => 'user',
                 ])
                 ->badge()
                 ->searchable(),

@@ -36,26 +36,21 @@ class AuthController extends Controller
             'password.confirmed' => 'Passwords do not match.',
         ]);
 
-        // Create new user
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => 'customer',
+            'role' => 'user',
             'balance' => 1000000,
         ]);
 
-        // Automatically log the user in after registration
         Auth::login($user);
 
-        // Redirect to intended page
         return redirect()->intended('/auth/signin')->with('toast', 'Registration successful!');
     }
 
-    // Handle login request
     public function login(Request $request)
     {
-        // Validate login data
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string|min:4',
@@ -66,28 +61,23 @@ class AuthController extends Controller
             'password.min' => 'Password must be at least 4 characters.',
         ]);
 
-        // Attempt to find the user
         $user = User::where('email', $validated['email'])->first();
 
         if ($user && Hash::check($validated['password'], $user->password)) {
             Auth::login($user);
 
-            // Tambahkan redirect berdasarkan role
             if ($user->role === 'admin') {
                 Auth::logout();
                 Session::flush();
-                return redirect()->intended('/admin'); // Ini rute Filament
+                return redirect()->intended('/admin');
             }
 
-            // Redirect ke halaman customer biasa
             return redirect()->intended('/');
         }
 
-        // If login fails, return back with an error message
         return back()->withErrors(['email' => 'These credentials do not match our records.']);
     }
 
-    // Handle logout request
     public function logout()
     {
         Auth::logout();

@@ -24,12 +24,12 @@ class UserSeeder extends Seeder
                 'balance' => 0,
             ],
             [
-                'name' => 'Customer',
-                'email' => 'customer@gmail.com',
-                'password' => bcrypt('customer'),
+                'name' => 'User',
+                'email' => 'user@gmail.com',
+                'password' => bcrypt('user'),
                 'phone_number' => '083111462006',
                 'shipping_address' => 'Jln. Bundaran Akbar No. 28',
-                'role' => 'customer',
+                'role' => 'user',
                 'balance' => 100000000,
             ],
             [
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('zaidan'),
                 'phone_number' => '087788772419',
                 'shipping_address' => 'Jln. Ancol Selatan No. 19B',
-                'role' => 'customer',
+                'role' => 'user',
                 'balance' => 1000000,
             ],
         ];
